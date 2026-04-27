@@ -1,5 +1,5 @@
 # Resistance Profiling 
 
-- Reproducible pipelines for TBProfiler and Mykrobe for WGS analysis from clinical samples.
+- Reproducible pipeline for TBProfiler and Mykrobe for WGS analysis from clinical samples.
 
-- Perform species confirmation, lineage assignment, and drug-resistance prediction
+- Perform lineage assignment and drug-resistance prediction
