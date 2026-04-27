@@ -1,4 +1,4 @@
-# Drug Resistance Profiling 
+# Resistance Profiling 
 
 Reproducible pipelines for TBProfiler and Mykrobe for WGS analysis from clinical samples.
 
