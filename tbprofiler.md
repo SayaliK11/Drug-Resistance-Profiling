@@ -1,5 +1,5 @@
 
-### Install TBProfiler
+### 1. Install TBProfiler
 ```
 # Set up the channels
 conda config --add channels defaults
@@ -9,7 +9,7 @@ conda config --add channels conda-forge
 conda config --show channels #Check channels available
 ```
 
-### Make yaml file and add the dependencies
+### 1. Make yaml file and add the dependencies
 ```
 cat > tbprofiler_env.yaml << 'EOF'
 name: tbprofiler_env
@@ -30,7 +30,7 @@ EOF
 conda env create -f tbprofiler_env.yaml
 ```
 
-### Activate conda environment
+### 3. Activate conda environment
 ```
 conda activate tbprofiler_en
 
@@ -39,12 +39,12 @@ tb-profiler version
 tb-profiler --help
 ```
 
-### Move to the directory that has samples and this script
+### 4. Move to the directory that has samples and this script
 
-### Make a sample ids list file
+### 5. Make a sample ids list file (optional)
 ls -1 *_R1_001.fastq.gz 2>/dev/null | sed 's/_R1_001.fastq.gz//' > sample_ids.txt
 
-### Create bash script for TBProfiler
+### 6. Create bash script for TBProfiler
 ```
 cat > tbprofiler.sh << 'EOF'
 #!/bin/bash
@@ -101,12 +101,12 @@ echo "===== tb-profiler batch run finished at $(timestamp) =====" | tee -a "$LOG
 EOF
 ```
 
-### Save it as 
+### 7. Save it as 
 ```
 chmod +x tbprofiler.sh
 ```
 
-### Execute
+### 8. Execute
 ```
 ./tbprofiler.sh
 ```
