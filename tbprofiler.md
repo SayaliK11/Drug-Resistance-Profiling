@@ -42,7 +42,9 @@ tb-profiler --help
 ### 4. Move to the directory that has samples and this script
 
 ### 5. Make a sample ids list file (optional)
+```
 ls -1 *_R1_001.fastq.gz 2>/dev/null | sed 's/_R1_001.fastq.gz//' > sample_ids.txt
+```
 
 ### 6. Create bash script for TBProfiler
 ```
