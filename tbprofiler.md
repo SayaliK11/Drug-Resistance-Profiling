@@ -33,6 +33,7 @@ conda env create -f tbprofiler_env.yaml
 ### Activate conda environment
 ```
 conda activate tbprofiler_en
+
 #Check installation 
 tb-profiler version
 tb-profiler --help
