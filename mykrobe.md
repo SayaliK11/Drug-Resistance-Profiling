@@ -1,45 +1,26 @@
 ### 1. Install Mykrobe
 ```
-# Set up the channels
-conda config --add channels defaults
-conda config --add channels bioconda
-conda config --add channels conda-forge
+conda create -n mykrobe -c bioconda -c conda-forge python=3.11 mykrobe
 
-# Check available channels
-conda config --show channels
-```
-### 2. Make yaml file and add the dependencies
-```
-cat > mykrobe_env.yaml << 'EOF'
-name: mykrobe_env
-channels:
-  - bioconda
-  - conda-forge
-  - defaults
-
-dependencies:
-  - python=3.8
-  - mykrobe=0.13.0
-EOF
-
-conda env create -f mykrobe_env.yaml
 ```
 
-### 3. Activate conda environment
+
+### 2. Activate conda environment
 ```
-conda activate mykrobe_env
+conda activate mykrobe
 
 # Check installation
 mykrobe --help
 ```
 
-### 4. Move to the directory that has samples and this script
-### 5. Make a sample IDs list file (optional)
+### 3. Move to the directory that has samples and this script
+
+### 4. Make a sample IDs list file (optional)
 ```
 ls -1 *_R1_001.fastq.gz 2>/dev/null | sed 's/_R1_001.fastq.gz//' > sample_ids.txt
 ```
 
-### 6. Create bash script for Mykrobe
+### 5. Create bash script for Mykrobe
 ```
 cat > mykrobe.sh << 'EOF'
 #!/bin/bash
@@ -108,12 +89,12 @@ echo "===== Mykrobe batch run finished at $(timestamp) ====="
 EOF
 ```
 
-### 7. Save it as executable
+### 6. Save it as executable
 ```
 chmod +x mykrobe.sh
 ```
 
-### 8. Execute
+### 7. Execute
 ```
 ./mykrobe.sh
 ```
