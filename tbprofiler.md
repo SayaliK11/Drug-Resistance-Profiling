@@ -1,15 +1,15 @@
-# move to the directory which has samples and this script
-#-------------------------------------------------------------------------------------------------------------------
-#### TBProfiler
-#-------------------------------------------------------------------------------------------------------------------
-#Setup the channels
+
+### Install TBProfiler
+# Set up the channels
+```
 conda config --add channels defaults
 conda config --add channels bioconda
 conda config --add channels conda-forge
 
 conda config --show channels #Check channels available
+```
 
-# Make yaml file and add the dependencies
+### Make yaml file and add the dependencies
 conda env create -f tbprofiler_env.yaml
 conda activate tbprofiler_env
 tb-profiler --help
@@ -18,9 +18,10 @@ tb-profiler --help
 tb-profiler version
 tb-profiler --help
 
-# Activate conda environment
+### Activate conda environment
 conda activate tbprofiler_en
 
+### Move to the directory which has samples and this script
 
 ### Make a sample ids list file
 ls -1 *_R1_001.fastq.gz 2>/dev/null | sed 's/_R1_001.fastq.gz//' > sample_ids.txt
