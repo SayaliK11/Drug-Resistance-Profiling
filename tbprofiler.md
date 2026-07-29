@@ -11,6 +11,21 @@ conda config --show channels #Check channels available
 
 ### Make yaml file and add the dependencies
 conda env create -f tbprofiler_env.yaml
+```
+name: tbprofiler_env
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.8
+  - tb-profiler=4.2.0
+  - bcftools=1.14
+  - htslib=1.14
+  - delly=0.8.7
+  - samtools=1.14
+```
+
 conda activate tbprofiler_env
 tb-profiler --help
 
