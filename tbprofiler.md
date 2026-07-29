@@ -9,7 +9,7 @@ conda config --add channels conda-forge
 conda config --show channels #Check channels available
 ```
 
-### 1. Make yaml file and add the dependencies
+### 2. Make yaml file and add the dependencies
 ```
 cat > tbprofiler_env.yaml << 'EOF'
 name: tbprofiler_env
