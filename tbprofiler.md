@@ -10,13 +10,14 @@ conda config --show channels #Check channels available
 ```
 
 ### Make yaml file and add the dependencies
-conda env create -f tbprofiler_env.yaml
 ```
+cat > tbprofiler_env.yaml << 'EOF'
 name: tbprofiler_env
 channels:
   - bioconda
   - conda-forge
   - defaults
+
 dependencies:
   - python=3.8
   - tb-profiler=4.2.0
@@ -24,48 +25,59 @@ dependencies:
   - htslib=1.14
   - delly=0.8.7
   - samtools=1.14
+EOF
+
+conda env create -f tbprofiler_env.yaml
 ```
 
-conda activate tbprofiler_env
-tb-profiler --help
-
+### Activate conda environment
+```
+conda activate tbprofiler_en
 #Check installation 
 tb-profiler version
 tb-profiler --help
+```
 
-### Activate conda environment
-conda activate tbprofiler_en
-
-### Move to the directory which has samples and this script
+### Move to the directory that has samples and this script
 
 ### Make a sample ids list file
 ls -1 *_R1_001.fastq.gz 2>/dev/null | sed 's/_R1_001.fastq.gz//' > sample_ids.txt
 
-
+### Create bash script for TBProfiler
 ```
+cat > tbprofiler.sh << 'EOF'
 #!/bin/bash
-# TBProfiler batch script 
+# TBProfiler batch script
 # ------------------------------------------
 
 LOGFILE="tbprofiler_run.log"
 RESULT_DIR="tbp_results"
-timestamp() 
-{
+
+timestamp() {
   date +"%Y-%m-%d %H:%M:%S"
 }
+
 mkdir -p "$RESULT_DIR"
+
 echo "===== tb-profiler batch run started at $(timestamp) =====" | tee -a "$LOGFILE"
 
-conda activate tbprofiler_env || { echo "Failed to activate tbprofiler_env" | tee -a "$LOGFILE"; exit 1; }
+source "$(conda info --base)/etc/profile.d/conda.sh"
+conda activate tbprofiler_env || {
+  echo "Failed to activate tbprofiler_env" | tee -a "$LOGFILE"
+  exit 1
+}
 
-# run tbprofiler
+# Run TBProfiler on all paired-end samples
 for sample_r1 in *_R1_001.fastq.gz; do
-  sample="${sample_r1%%_R1_001.fastq.gz}"  
+  sample="${sample_r1%%_R1_001.fastq.gz}"
 
   echo "[$(timestamp)] Processing sample: $sample" | tee -a "$LOGFILE"
 
   mkdir -p "$RESULT_DIR/$sample"
-  cd "$RESULT_DIR/$sample" || { echo "Failed to enter $sample" | tee -a "../../$LOGFILE"; exit 1; }
+  cd "$RESULT_DIR/$sample" || {
+    echo "Failed to enter $sample" | tee -a "../../$LOGFILE"
+    exit 1
+  }
 
   start_time=$(date +%s)
 
@@ -77,10 +89,40 @@ for sample_r1 in *_R1_001.fastq.gz; do
     --txt
 
   end_time=$(date +%s)
-```
   duration=$((end_time - start_time))
 
   echo "[$(timestamp)] Finished sample: $sample in ${duration}s" | tee -a "../../$LOGFILE"
+
   cd ../..
 done
+
 echo "===== tb-profiler batch run finished at $(timestamp) =====" | tee -a "$LOGFILE"
+EOF
+```
+
+### Save it as 
+```
+chmod +x tbprofiler.sh
+```
+
+### Execute
+```
+./tbprofiler.sh
+```
+
+---
+
+### If you want to run it in the background (recommended for long analyses):
+```
+nohup ./tbprofiler.sh > tbprofiler.out 2>&1 &
+```
+
+### Monitor the progress with
+```
+tail -f tbprofiler_run.log
+```
+or 
+```
+tail -f tbprofiler.out
+```
+
