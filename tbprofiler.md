@@ -1,7 +1,7 @@
 
 ### Install TBProfiler
-# Set up the channels
 ```
+# Set up the channels
 conda config --add channels defaults
 conda config --add channels bioconda
 conda config --add channels conda-forge
