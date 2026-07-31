@@ -1,7 +1,6 @@
 ### 1. Install Mykrobe
 ```
 conda create -n mykrobe -c bioconda -c conda-forge python=3.11 mykrobe
-
 ```
 
 
